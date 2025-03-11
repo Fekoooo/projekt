@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>TravelGo</title>
+    <title>Tripify</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -48,7 +48,7 @@
                     <div class="icon p-2 me-2">
                         <img class="img-fluid" src="img/icon-deal.png" alt="Icon" style="width: 30px; height: 30px;">
                     </div>
-                    <h1 class="m-0 text-primary">TravelGo</h1>
+                    <h1 class="m-0 text-primary">Tripify</h1>
                 </a>
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                     <span class="navbar-toggler-icon"></span>
@@ -102,6 +102,19 @@
             </div>
         </div>
         <!-- Header End -->
+         <!-- Search Start -->
+        <div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
+            <div class="container">
+                <div class="row g-2">
+                    <div class="col-md-10">
+                        <div class="row g-2">            
+                        </div>
+                        </div>
+                        <div class="col-md-2">
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Vélemények Start -->
         <div class="container-xxl py-5">

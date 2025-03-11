@@ -14,7 +14,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #2ecc71; /* Zöld háttér */
+            background-color:#00B98E; /* Zöld háttér */
         }
 
         /* Login konténer */

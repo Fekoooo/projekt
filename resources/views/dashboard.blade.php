@@ -21,7 +21,7 @@
         /* Oldalsó navigációs sáv */
         .sidebar {
             width: 250px;
-            background-color: #343a40;
+            background-color: #00B98E;
             color: #fff;
             display: flex;
             flex-direction: column;
@@ -114,7 +114,7 @@
     <!-- Oldalsó navigáció -->
     <div class="sidebar">
         <h2>Dashboard</h2>
-        <a href="{{ route('fooldal') }}" class="active">Főoldal</a>
+        <a href="{{ route('fooldal') }}">Főoldal</a>
         <a href="#">Profil</a>
         <a href="#">Beállítások</a>
         <!-- Kijelentkezési gomb -->
