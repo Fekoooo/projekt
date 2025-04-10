@@ -271,6 +271,8 @@
     color: #FFFFFF;
 }
 
+
+
 .property-item {
     box-shadow: 0 0 30px rgba(0, 0, 0, .08);
 }
@@ -439,4 +441,20 @@
     padding-right: 0;
     border-right: none;
 }
+
+.custom-login-button {
+    background-color: #28a745; /* Zöld háttérszín */
+    color: #fff; /* Fehér szöveg */
+    padding: 10px 20px; /* Gomb mérete */
+    border-radius: 5px; /* Lekerekített sarkok */
+    text-decoration: none; /* Link aláhúzás eltávolítása */
+    font-weight: bold; /* Félkövér szöveg */
+    display: inline-block; /* Gombként jelenjen meg */
+    transition: background-color 0.3s ease; /* Hover animáció */
+}
+
+.custom-login-button:hover {
+    background-color: #218838; /* Sötétebb zöld szín hover állapotban */
+}
+
 

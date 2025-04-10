@@ -8,6 +8,18 @@ use Illuminate\Http\Request;
 
 class PropertyController extends Controller
 {
+    
+     public function search(Request $request)
+    {
+        // Keresési kifejezés lekérése
+        $query = $request->input('query');
+
+        // Ingatlanok szűrése a város alapján
+        $properties = Property::where('location', 'LIKE', '%' . $query . '%')->get();
+
+        // Nézet visszaadása a szűrt ingatlanokkal
+        return view('search', compact('properties', 'query'));
+    }
     // Szállások lekérdezése
     public function index()
     {

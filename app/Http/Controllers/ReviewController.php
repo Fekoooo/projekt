@@ -20,4 +20,31 @@ class ReviewController extends Controller
 
         return redirect()->back()->with('success', 'Köszönjük a véleményed!');
     }
+    public function submitReview(Request $request)
+{
+    // Ellenőrizzük, hogy a felhasználó be van-e jelentkezve
+    if (Auth::check()) {
+        $name = Auth::user()->name;
+        $email = Auth::user()->email;
+    } else {
+        // Ha nincs bejelentkezve, a név és e-mail az űrlapból érkezik
+        $name = $request->input('name');
+        $email = $request->input('email');
+    }
+
+    // Validáció
+    $request->validate([
+        'review' => 'required|string|max:1000',
+    ]);
+
+    // Vélemény mentése
+    Review::create([
+        'name' => $name,
+        'email' => $email,
+        'review' => $request->input('review'),
+    ]);
+
+    return redirect()->back()->with('success', 'Köszönjük a véleményed!');
+}
+
 }

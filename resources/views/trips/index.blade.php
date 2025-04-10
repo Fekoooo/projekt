@@ -8,7 +8,6 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
     <link href="img/icon-deal.png" rel="icon">
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Inter:wght@700;800&display=swap" rel="stylesheet">
@@ -22,12 +21,6 @@
 
 <body>
     <div class="container-xxl bg-white p-0">
-        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-        </div>
-
         <div class="container-fluid nav-bar bg-transparent">
             <nav class="navbar navbar-expand-lg bg-white navbar-light py-0 px-4">
                 <a href="{{ route('fooldal') }}" class="navbar-brand d-flex align-items-center text-center">
@@ -42,8 +35,8 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto">
                         <a href="{{ route('fooldal') }}" class="nav-item nav-link">Főoldal</a>
-                        <a href="{{ route('trips.index') }}" class="nav-item nav-link">Utazások</a>
-                        <a href="{{ route('ingatlanok') }}" class="nav-item nav-link active">Szállások</a>
+                        <a href="{{ route('trips.index') }}" class="nav-item nav-link active">Utazások</a>
+                        <a href="{{ route('ingatlanok') }}" class="nav-item nav-link">Szállások</a>
                         <a href="{{ route('kontakt') }}" class="nav-item nav-link">Kapcsolat</a>
                     </div>
                     <div>
@@ -69,7 +62,6 @@
                                 background-color: #00B98E;
                             }
                         </style>
-
                         @if (Auth::check())
                             <a href="{{ route('dashboard') }}" class="button">
                                 <img src="img/avatar.png" alt="Profilkép" id="avatar">
@@ -85,7 +77,7 @@
         <div class="container-fluid header bg-white p-0">
             <div class="row g-0 align-items-center flex-column-reverse flex-md-row">
                 <div class="col-md-6 p-5 mt-lg-5">
-                    <h1 class="display-5 animated fadeIn mb-4">Elérhető Szállások</h1>
+                    <h1 class="display-5 animated fadeIn mb-4">Elérhető Utazások</h1>
                 </div>
                 <div class="col-md-6 animated fadeIn">
                     <img class="img-fluid" src="img/header.jpg" alt="">
@@ -105,56 +97,53 @@
         </div>
 
         <div class="container mt-4">
-            <form action="{{ route('ingatlanok.search') }}" method="GET" class="d-flex mb-4">
-                <input type="text" name="query" class="form-control me-2" placeholder="Keresés város alapján..." value="{{ request('query') }}">
-                <button type="submit" class="btn btn-primary">Keresés</button>
-            </form>
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
+            @if(session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ session('error') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
         </div>
 
         <div class="container">
-            @if(isset($query))
-                <h5 class="mb-4">Keresési eredmények: "{{ $query }}"</h5>
-            @endif
-
             <div class="row g-4">
-                @forelse($properties as $property)
+                @foreach($trips as $trip)
                     <div class="col-lg-4 col-md-6">
-                        <div class="property-item rounded overflow-hidden shadow">
+                        <div class="property-item rounded overflow-hidden">
                             <div class="position-relative overflow-hidden">
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#propertyModal{{ $property->id }}">
-                                    <img class="img-fluid" src="{{ $property->image_url }}" alt="{{ $property->name }}">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#tripModal{{ $trip->id }}">
+                                    <img class="img-fluid" src="{{ $trip->image_url }}" alt="{{ $trip->destination }}">
                                 </a>
-                                <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">{{ $property->type }}</div>
-                                <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">{{ $property->name }}</div>
+                                <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">{{ $trip->transport }}</div>
+                                <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">{{ $trip->destination }}</div>
                             </div>
                             <div class="p-4 pb-0">
-                                <h5 class="text-primary mb-3">{{ $property->price }} Ft/éj</h5>
-                                <p><i class="fa fa-map-marker-alt text-primary me-2"></i>{{ $property->location }}</p>
-                                @if($property->bookings->isNotEmpty())
-                                    <p class="text-danger">Foglaltság:</p>
-                                    <ul>
-                                        @foreach($property->bookings as $booking)
-                                            <li>{{ $booking->start_date }} - {{ $booking->end_date }}</li>
-                                        @endforeach
-                                    </ul>
-                                @else
-                                    <p class="text-success">Szabad</p>
-                                @endif
+                                <h5 class="text-primary mb-3">{{ $trip->price }} Ft/2 Főre</h5>
+                                <p><i class="fa fa-calendar-alt text-primary me-2"></i>{{ $trip->departure_date }} - {{ $trip->arrival_date }}</p>
+                                <p><i class="fa fa-clock text-primary me-2"></i>{{ $trip->duration }} nap</p>
+                                <p>{{ $trip->description }}</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="modal fade" id="propertyModal{{ $property->id }}" tabindex="-1" aria-labelledby="propertyModalLabel{{ $property->id }}" aria-hidden="true">
+                    <div class="modal fade" id="tripModal{{ $trip->id }}" tabindex="-1" aria-labelledby="tripModalLabel{{ $trip->id }}" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="propertyModalLabel{{ $property->id }}">Foglalás: {{ $property->name }}</h5>
+                                    <h5 class="modal-title" id="tripModalLabel{{ $trip->id }}">Foglalás: {{ $trip->destination }}</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="{{ route('foglalas') }}" method="POST">
+                                    <form action="{{ route('trips.book') }}" method="POST">
                                         @csrf
-                                        <input type="hidden" name="property_id" value="{{ $property->id }}">
+                                        <input type="hidden" name="trip_id" value="{{ $trip->id }}">
                                         @if(Auth::check())
                                             <input type="hidden" name="name" value="{{ Auth::user()->name }}">
                                             <input type="hidden" name="email" value="{{ Auth::user()->email }}">
@@ -169,12 +158,12 @@
                                             </div>
                                         @endif
                                         <div class="mb-3">
-                                            <label for="start_date" class="form-label">Kezdő Dátum</label>
-                                            <input type="date" class="form-control" name="start_date" min="{{ date('Y-m-d') }}" required>
+                                            <label for="start_date" class="form-label">Indulási dátum</label>
+                                            <input type="date" class="form-control" name="start_date" value="{{ $trip->departure_date }}" readonly>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="end_date" class="form-label">Befejező Dátum</label>
-                                            <input type="date" class="form-control" name="end_date" min="{{ date('Y-m-d') }}" required>
+                                            <label for="end_date" class="form-label">Érkezési dátum</label>
+                                            <input type="date" class="form-control" name="end_date" value="{{ $trip->arrival_date }}" readonly>
                                         </div>
                                         <button type="submit" class="btn btn-primary">Foglalás</button>
                                     </form>
@@ -182,9 +171,7 @@
                             </div>
                         </div>
                     </div>
-                @empty
-                    <p class="text-danger">Nincs találat a keresésre.</p>
-                @endforelse
+                @endforeach
             </div>
         </div>
 

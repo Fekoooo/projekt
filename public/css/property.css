@@ -1,0 +1,69 @@
+/********** Szállások Kártyák Stílusa **********/
+
+.property-item {
+    width: 100%;
+    max-width: 350px; /* Kártya szélessége */
+    height: auto; /* Automatikus magasság */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff; /* Fehér háttér */
+    transition: all 0.3s ease;
+}
+
+.property-item:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transform: scale(1.02);
+}
+
+.property-item img {
+    width: 100%;
+    height: 200px; /* Fix magasság a képekhez */
+    object-fit: cover; /* A kép arányosan kitölti a területet */
+    border-bottom: 1px solid #ddd;
+}
+
+.property-item .p-4 {
+    padding: 15px;
+    text-align: left; /* Balra igazított szöveg */
+}
+
+.property-item h5 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #00B98E; /* Zöld szín */
+    margin-bottom: 10px;
+}
+
+.property-item p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.property-item .bg-primary {
+    background-color: #00B98E; /* Zöld háttérszín */
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.property-item .icon {
+    color: #00B98E;
+    margin-right: 5px;
+}
+
+/* Reszponzivitás */
+@media (max-width: 768px) {
+    .property-item {
+        max-width: 100%; /* Mobilon a kártyák teljes szélességet kitöltenek */
+    }
+}

@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register Page</title>
+    <title>Tripify</title>
+    <link href="img/icon-deal.png" rel="icon">
     <style>
         /* Alap stílusok */
         body {
@@ -85,17 +86,17 @@
 </head>
 <body>
     <div class="register-container">
-        <h1>Signup</h1>
+        <h1>Regisztráció</h1>
         <form method="POST" action="{{ route('register') }}">
             @csrf
-            <input type="text" name="name" placeholder="Enter your name" required>
-            <input type="email" name="email" placeholder="Enter your email" required>
-            <input type="password" name="password" placeholder="Create a password" required>
-            <input type="password" name="password_confirmation" placeholder="Confirm your password" required>
-            <button type="submit">Signup</button>
+            <input type="text" name="name" placeholder="Írd be a Neved" required>
+            <input type="email" name="email" placeholder="Írd be az email címed" required>
+            <input type="password" name="password" placeholder="Írd be a jelszavadat" required>
+            <input type="password" name="password_confirmation" placeholder="Ismételd meg a jelszavadat" required>
+            <button type="submit">Regisztráció</button>
         </form>
         <div class="login-link">
-            Already have an account? <a href="{{ route('login') }}">Login</a>
+            Van már fiókod? <a href="{{ route('login') }}">Bejelentkezés</a>
         </div>
     </div>
 </body>

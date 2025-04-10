@@ -1,43 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tripify Dashboard</title>
     <link href="img/icon-deal.png" rel="icon">
     <style>
+        /* Alap stílusok */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
             display: flex;
             height: 100vh;
         }
 
+        /* Oldalsó navigációs sáv */
         .sidebar {
             width: 250px;
-            background: linear-gradient(135deg, #00B98E, #007bff);
+            background-color: #00B98E;
             color: #fff;
             display: flex;
             flex-direction: column;
             padding: 20px;
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
         }
-
         .sidebar h2 {
             text-align: center;
             margin-bottom: 20px;
             font-size: 24px;
-            font-weight: bold;
-            text-transform: uppercase;
         }
-
         .sidebar a {
             text-decoration: none;
             color: #fff;
@@ -45,154 +40,115 @@
             margin: 5px 0;
             border-radius: 5px;
             display: block;
-            transition: all 0.3s ease;
-            font-weight: bold;
         }
-
         .sidebar a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-            transform: scale(1.05);
+            background-color: #495057;
         }
-
         .sidebar a.active {
-            background-color: rgba(255, 255, 255, 0.3);
+            background-color: #007bff;
         }
-
+        .sidebar form {
+            margin-top: 10px;
+        }
         .sidebar button {
             width: 100%;
             padding: 10px;
-            background: linear-gradient(135deg, #00B98E, #007bff);
+            background-color: #ff4d4d;
             color: #fff;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
         }
-
         .sidebar button:hover {
-            background: linear-gradient(135deg, #007bff, #00B98E);
-            transform: scale(1.05);
+            background-color: #e60000;
         }
 
+        /* Fő tartalom */
         .main-content {
             flex: 1;
             display: flex;
             flex-direction: column;
         }
 
+        /* Fejléc */
         .header {
             background-color: #fff;
             padding: 15px 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-
         .header h1 {
-            font-size: 24px;
+            font-size: 20px;
             color: #333;
-            font-weight: bold;
         }
-
         .header .user-info {
             display: flex;
             align-items: center;
-            gap: 10px;
         }
-
         .header .user-info img {
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            border: 3px solid #00B98E;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-right: 10px;
         }
-
         .header .user-info span {
-            font-size: 18px;
+            font-size: 16px;
             color: #333;
-            font-weight: bold;
         }
 
+        /* Tartalom */
         .content {
             padding: 20px;
             flex: 1;
         }
-
         .content h2 {
-            font-size: 28px;
+            font-size: 24px;
             margin-bottom: 20px;
             color: #333;
-            font-weight: bold;
         }
-
         .content table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
-            background-color: #fff;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-            overflow: hidden;
         }
-
-        .content th,
-        .content td {
-            padding: 15px;
+        .content th, .content td {
+            padding: 10px;
             border: 1px solid #ddd;
             text-align: left;
         }
-
         .content th {
-            background: linear-gradient(135deg, #00B98E, #007bff);
-            color: #fff;
-            font-weight: bold;
-            text-transform: uppercase;
+            background-color: #f4f4f9;
         }
-
-        .content td {
-            background-color: #f9f9f9;
-            transition: background-color 0.3s ease;
-        }
-
-        .content tr:hover td {
-            background-color: #e6f7ff;
-        }
-
         .content button {
-            background: linear-gradient(135deg, #00B98E, #007bff);
+            background-color: #ff4d4d;
             color: #fff;
             border: none;
-            padding: 10px 15px;
+            padding: 5px 10px;
             border-radius: 5px;
             cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
         }
-
         .content button:hover {
-            background: linear-gradient(135deg, #007bff, #00B98E);
-            transform: scale(1.05);
+            background-color: #e60000;
         }
     </style>
 </head>
-
 <body>
+    <!-- Oldalsó navigáció -->
     <div class="sidebar">
-        <h2>
-            <img src="img/icon-deal.png" alt="Tripify Logo" style="width: 30px; height: 30px; vertical-align: middle; margin-right: 10px;">
-            TRIPIFY
-        </h2>
-        <a href="{{ route('fooldal') }}" class="active">Főoldal</a>
-        <form method="POST" action="{{ route('logout') }}">
+        <h2>Dashboard</h2>
+        <a href="{{ route('fooldal') }}" class="{{ request()->routeIs('fooldal') ? 'active' : '' }}">Főoldal</a>
+        <a href="#" class="{{ request()->routeIs('profile') ? 'active' : '' }}">Profil</a>
+        <form method="POST" action="{{ route('logout') }}" style="margin-top: 10px;">
             @csrf
-            <button type="submit">Kijelentkezés</button>
+            <button type="submit" class="logout-button">Kijelentkezés</button>
         </form>
     </div>
 
+    <!-- Fő tartalom -->
     <div class="main-content">
+        <!-- Fejléc -->
         <div class="header">
             <h1>Üdvözlünk a Tripify Dashboardon!</h1>
             <div class="user-info">
@@ -201,8 +157,10 @@
             </div>
         </div>
 
+        <!-- Tartalom -->
         <div class="content">
             <h2>Foglalásaim</h2>
+            <!-- Szállásfoglalások -->
             @if($bookings->isEmpty())
                 <p>Nincs aktív szállásfoglalásod.</p>
             @else
@@ -234,6 +192,7 @@
                 </table>
             @endif
 
+            <!-- Utazásfoglalások -->
             <h2>Utazásaim</h2>
             @if($tripBookings->isEmpty())
                 <p>Nincs aktív utazásfoglalásod.</p>
@@ -268,5 +227,4 @@
         </div>
     </div>
 </body>
-
 </html>

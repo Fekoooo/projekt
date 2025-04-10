@@ -5,23 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Property extends Model
+class Trip extends Model
 {
     use HasFactory;
 
+    
     protected $fillable = [
-        'name',
-        'type',
+        'destination',
+        'transport',
+        'duration',
+        'departure_date',
+        'arrival_date',
         'price',
-        'location',
+        'description',
+        'rating',
         'image_url',
-        'sqft',
-        'beds',
-        'baths',
     ];
-
-    public function bookings()
-    {
-        return $this->hasMany(Booking::class);
-    }
 }
+
